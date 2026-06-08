@@ -10,7 +10,7 @@
   "dependencies": {
     "@neondatabase/serverless": "^0.9.0",
     "jose": "^5.2.0",
-    "lucide-react": "^0.383.0",
+    "lucide-react": "1.17.0",
     "next": "^16.2.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -22,17 +22,5 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "typescript": "^5"
-  },
-  "overrides": {
-    "lucide-react": {
-      "react": "*"
-    },
-    "react-icons": {
-      "react": "*"
-    },
-    "@react-email/render": {
-      "react": "*",
-      "react-dom": "*"
-    }
   }
 }
