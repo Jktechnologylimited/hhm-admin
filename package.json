@@ -15,7 +15,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.0.0",
-    "resend": "^3.0.0"
+    "resend": "^4.0.0"
   },
   "devDependencies": {
     "@types/node": "^20",
@@ -29,6 +29,10 @@
     },
     "react-icons": {
       "react": "*"
+    },
+    "@react-email/render": {
+      "react": "*",
+      "react-dom": "*"
     }
   }
 }

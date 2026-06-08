@@ -6,7 +6,7 @@ export default function AdminTraining() {
   const [items, setItems] = useState<any[]>([]);
   const [show, setShow] = useState(false);
   const [editing, setEditing] = useState<any>(null);
-  const [form, setForm] = useState({ title:'', description:'', trainer:"Evangelist Bob Pepple", scheduled_at:'', zoom_link:'', zoom_password:'', is_published:true, max_attendees:'' });
+  const [form, setForm] = useState({ title:'', description:'', trainer:"Evangelist Bob Edward", scheduled_at:'', zoom_link:'', zoom_password:'', is_published:true, max_attendees:'' });
   const [saving, setSaving] = useState(false);
 
   const fetch_ = () => fetch('/api/trainings').then(r=>r.json()).then(d=>setItems(d.trainings||[]));
@@ -28,7 +28,7 @@ export default function AdminTraining() {
     <AdminLayout title=" Free Training Sessions">
       <div style={{ display:'flex', justifyContent:'space-between', marginBottom:24 }}>
         <p style={{ color:'rgba(255,255,255,0.5)', fontFamily:'Cormorant Garamond,serif', fontStyle:'italic', fontSize:16 }}>{items.length} session{items.length!==1?'s':''}</p>
-        <button onClick={() => { setEditing(null); setForm({ title:'', description:'', trainer:"Evangelist Bob Pepple", scheduled_at:'', zoom_link:'', zoom_password:'', is_published:true, max_attendees:'' }); setShow(true); }} className="btn-primary">New Session</button>
+        <button onClick={() => { setEditing(null); setForm({ title:'', description:'', trainer:"Evangelist Bob Edward", scheduled_at:'', zoom_link:'', zoom_password:'', is_published:true, max_attendees:'' }); setShow(true); }} className="btn-primary">New Session</button>
       </div>
       {items.length === 0 ? (
         <div style={{ textAlign:'center', padding:'60px 0', border:'1px dashed rgba(232,76,14,0.2)', borderRadius:8 }}>

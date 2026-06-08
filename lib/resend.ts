@@ -131,7 +131,7 @@ export async function sendWelcomeEmail(email: string, name: string) {
 
       <p>Welcome to the Heaven's Hospitality Ministries family. By subscribing, you've joined a global community of believers who are discovering what it truly means to live in the fullness of God's love, grace, and hospitality.</p>
 
-      <p>Evangelist Bob Pepple and the entire team are honoured to walk this journey with you.</p>
+      <p>Evangelist Bob Edward and the entire team are honoured to walk this journey with you.</p>
 
       <h2>Here's what to expect:</h2>
       <ul class="what-list">
@@ -146,7 +146,7 @@ export async function sendWelcomeEmail(email: string, name: string) {
         <cite>Matthew 25:35</cite>
       </div>
 
-      <p>As a welcome gift, a free book from Evangelist Bob Pepple is available to you. It is a revelation that will transform how you understand your inheritance in Christ.</p>
+      <p>As a welcome gift, a free book from Evangelist Bob Edward is available to you. It is a revelation that will transform how you understand your inheritance in Christ.</p>
 
       <div class="cta-block">
         <a href="${SITE_URL}" class="cta">Visit Our Website</a>
@@ -204,7 +204,7 @@ export async function sendContactNotification(message: {
   return resend.emails.send({
     from: FROM,
     to: process.env.ADMIN_EMAIL || 'hospitalityheavens@gmail.com',
-    reply_to: message.email,
+    replyTo: message.email,
     subject: `New Contact: ${message.subject}`,
     html: `<!DOCTYPE html>
 <html>

@@ -14,8 +14,8 @@ interface Settings {
 const DEFAULTS: Settings = {
   youtube_video_id: '',
   featured_book_title: 'In the Fullness of His Blessings',
-  featured_book_author: 'Evangelist Bob Edward Pepple',
-  featured_book_description: 'Religion told Bob Pepple that suffering was his lot. At 21, God showed him the truth. Your blessings are not on the way — they are already yours in Christ Jesus.',
+  featured_book_author: 'Evangelist Bob Edward',
+  featured_book_description: 'Religion told Bob Edward that suffering was his lot. At 21, God showed him the truth. Your blessings are not on the way — they are already yours in Christ Jesus.',
   featured_book_url: '/book/in-the-fullness-of-his-blessings.pdf',
   featured_book_cover_url: '/images/book-cover.jpg',
 };

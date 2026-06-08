@@ -35,7 +35,7 @@ export async function initDB() {
   )`;
   await sql`CREATE TABLE IF NOT EXISTS trainings (
     id SERIAL PRIMARY KEY, title VARCHAR(255) NOT NULL, description TEXT,
-    trainer VARCHAR(255) DEFAULT 'Evangelist Bob Pepple',
+    trainer VARCHAR(255) DEFAULT 'Evangelist Bob Edward',
     scheduled_at TIMESTAMP WITH TIME ZONE NOT NULL,
     zoom_link VARCHAR(500), zoom_password VARCHAR(100),
     is_published BOOLEAN DEFAULT true, max_attendees INT,
