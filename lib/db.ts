@@ -1,6 +1,9 @@
 import { neon } from '@neondatabase/serverless';
 
-const sql = neon(process.env.DATABASE_URL!);
+// DATABASE_URL is required at runtime but may not be present at build time.
+// We pass a placeholder during build — neon() doesn't connect until a query runs.
+const sql = neon(process.env.DATABASE_URL ?? 'postgresql://placeholder:placeholder@placeholder/placeholder');
+
 export default sql;
 
 export async function initDB() {
@@ -54,9 +57,9 @@ export async function initDB() {
   )`;
   await sql`CREATE TABLE IF NOT EXISTS accomplishments (
     id SERIAL PRIMARY KEY, title VARCHAR(255) NOT NULL, description TEXT,
-    stat_number VARCHAR(100), stat_label VARCHAR(100),
-    icon VARCHAR(10) DEFAULT '✅', image_url VARCHAR(500),
-    sort_order INT DEFAULT 0, created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    stat_number VARCHAR(100), stat_label VARCHAR(100), icon VARCHAR(10),
+    image_url VARCHAR(500), sort_order INT DEFAULT 0,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
   )`;
   await sql`CREATE TABLE IF NOT EXISTS miracles (
     id SERIAL PRIMARY KEY, title VARCHAR(255) NOT NULL, story TEXT NOT NULL,
@@ -74,8 +77,7 @@ export async function initDB() {
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
   )`;
   await sql`CREATE TABLE IF NOT EXISTS site_settings (
-    key VARCHAR(100) PRIMARY KEY,
-    value TEXT,
+    key VARCHAR(100) PRIMARY KEY, value TEXT,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
   )`;
   await sql`CREATE TABLE IF NOT EXISTS password_reset_tokens (
