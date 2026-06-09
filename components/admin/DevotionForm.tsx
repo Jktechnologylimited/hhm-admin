@@ -41,7 +41,7 @@ export default function DevotionForm({ initial, id }: Props) {
         body: JSON.stringify(form),
       });
       if (res.ok) {
-        router.push('/admin/devotions');
+        router.push('/devotions');
       } else {
         const data = await res.json();
         setError(data.error || 'Failed to save');
@@ -103,7 +103,7 @@ export default function DevotionForm({ initial, id }: Props) {
         <button type="submit" disabled={saving} className="btn-primary">
           {saving ? 'Saving…' : id ? 'Update Devotion' : 'Publish Devotion'}
         </button>
-        <button type="button" onClick={() => router.push('/admin/devotions')} className="btn-outline">
+        <button type="button" onClick={() => router.push('/devotions')} className="btn-outline">
           Cancel
         </button>
       </div>

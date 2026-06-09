@@ -34,7 +34,7 @@ export default function SermonForm({ initial, id }: { initial?: FormData; id?: n
       const url = id ? `/api/sermons/${id}` : '/api/sermons';
       const method = id ? 'PUT' : 'POST';
       const res = await fetch(url, { method, headers: {'Content-Type':'application/json'}, body: JSON.stringify(form) });
-      if (res.ok) router.push('/admin/sermons');
+      if (res.ok) router.push('/sermons');
       else { const data = await res.json(); setError(data.error || 'Failed to save'); }
     } catch { setError('Network error'); }
     finally { setSaving(false); }
@@ -108,7 +108,7 @@ export default function SermonForm({ initial, id }: { initial?: FormData; id?: n
         <button type="submit" disabled={saving} className="btn-primary">
           {saving ? 'Saving…' : id ? 'Update Sermon' : 'Publish Sermon'}
         </button>
-        <button type="button" onClick={() => router.push('/admin/sermons')} className="btn-outline">Cancel</button>
+        <button type="button" onClick={() => router.push('/sermons')} className="btn-outline">Cancel</button>
       </div>
     </form>
   );

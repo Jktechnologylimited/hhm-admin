@@ -30,22 +30,22 @@ export default function AdminDashboard() {
   }, [router]);
 
   const statCards = [
-    { label: 'Devotions', value: stats.devotions, href: '/admin/devotions' },
-    { label: 'Sermons', value: stats.sermons, href: '/admin/sermons' },
-    { label: 'Subscribers', value: stats.subscribers, href: '/admin/subscribers' },
-    { label: 'Prayer Requests', value: stats.prayers, href: '/admin/prayers' },
-    { label: 'Offerings Received', value: stats.offerings, href: '/admin/offerings' },
-    { label: 'Events', value: stats.events, href: '/admin/events' },
+    { label: 'Devotions', value: stats.devotions, href: '/devotions' },
+    { label: 'Sermons', value: stats.sermons, href: '/sermons' },
+    { label: 'Subscribers', value: stats.subscribers, href: '/subscribers' },
+    { label: 'Prayer Requests', value: stats.prayers, href: '/prayers' },
+    { label: 'Offerings Received', value: stats.offerings, href: '/offerings' },
+    { label: 'Events', value: stats.events, href: '/events' },
   ];
 
   const quickActions = [
-    { href: '/admin/devotions/new', label: 'New Devotion' },
-    { href: '/admin/sermons/new', label: 'Add Sermon' },
-    { href: '/admin/events', label: 'Manage Events' },
-    { href: '/admin/training', label: 'Training Sessions' },
-    { href: '/admin/miracles', label: 'Review Testimonies' },
-    { href: '/admin/offerings', label: 'View Transactions' },
-    { href: '/admin/missions', label: 'Update Missions' },
+    { href: '/devotions/new', label: 'New Devotion' },
+    { href: '/sermons/new', label: 'Add Sermon' },
+    { href: '/events', label: 'Manage Events' },
+    { href: '/training', label: 'Training Sessions' },
+    { href: '/miracles', label: 'Review Testimonies' },
+    { href: '/offerings', label: 'View Transactions' },
+    { href: '/missions', label: 'Update Missions' },
     { href: '/api/init', label: 'Init Database' },
   ];
 
