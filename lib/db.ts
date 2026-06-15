@@ -1,9 +1,6 @@
 import { neon } from '@neondatabase/serverless';
 
-// DATABASE_URL is required at runtime but may not be present at build time.
-// We pass a placeholder during build — neon() doesn't connect until a query runs.
 const sql = neon(process.env.DATABASE_URL ?? 'postgresql://placeholder:placeholder@placeholder/placeholder');
-
 export default sql;
 
 export async function initDB() {
@@ -78,6 +75,24 @@ export async function initDB() {
   )`;
   await sql`CREATE TABLE IF NOT EXISTS site_settings (
     key VARCHAR(100) PRIMARY KEY, value TEXT,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+  )`;
+  await sql`CREATE TABLE IF NOT EXISTS books (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    author VARCHAR(255) NOT NULL DEFAULT 'Evangelist Bob Edward',
+    description TEXT,
+    cover_url VARCHAR(500),
+    download_url VARCHAR(500) NOT NULL,
+    is_featured BOOLEAN DEFAULT false,
+    is_published BOOLEAN DEFAULT true,
+    sort_order INT DEFAULT 0,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+  )`;
+  await sql`CREATE TABLE IF NOT EXISTS site_content (
+    key VARCHAR(100) PRIMARY KEY,
+    value TEXT,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
   )`;
   await sql`CREATE TABLE IF NOT EXISTS password_reset_tokens (

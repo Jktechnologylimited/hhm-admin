@@ -7,6 +7,7 @@ import {
   LayoutDashboard, BookOpen, Mic2, Calendar, GraduationCap,
   Globe, Trophy, Sparkles, Users, HandHeart, DollarSign,
   Settings, LogOut, ExternalLink, ChevronLeft, ChevronRight,
+  Library, FileText,
 } from 'lucide-react';
 
 const MAIN_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://heavenshospitality.org';
@@ -23,7 +24,9 @@ const NAV = [
   { href: '/subscribers',    label: 'Subscribers',     icon: Users           },
   { href: '/prayers',        label: 'Prayer Requests', icon: HandHeart       },
   { href: '/offerings',      label: 'Offerings',       icon: DollarSign      },
-  { href: '/settings',       label: 'Settings',        icon: Settings        },
+  { href: '/books',          label: 'Books',           icon: Library         },
+  { href: '/content',         label: 'Site Content',    icon: FileText        },
+  { href: '/settings',        label: 'Settings',        icon: Settings        },
 ];
 
 export default function AdminLayout({ children, title }: { children: React.ReactNode; title: string }) {
