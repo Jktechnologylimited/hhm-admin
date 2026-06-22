@@ -4,7 +4,7 @@ import { Resend } from 'resend';
 import crypto from 'crypto';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-const FROM = 'heavens-hospitality@mail.ibiz.name.ng';
+const FROM = "Heaven's Hospitality Ministries <heavens-hospitality@mail.ibiz.name.ng>";
 const ADMIN_URL = process.env.NEXT_PUBLIC_ADMIN_URL || 'https://admin.heavenshospitality.org';
 
 export async function POST(req: NextRequest) {

@@ -1,8 +1,9 @@
 import { Resend } from 'resend';
+import { unsubscribeUrl } from './unsubscribe';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-const FROM = "Heaven's Hospitality Ministries <heavens-hospitality@mail.ibiz.name.ng>"; // Hardcoded — update when heavenshospitality.org propagates
+const FROM = "Heaven's Hospitality Ministries <heavens-hospitality@mail.ibiz.name.ng>"; // Display name + address — update domain when heavenshospitality.org propagates
 const SITE_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://heavenshospitality.org';
 
 // ─── Newsletter devotion email ──────────────────────────────────────────────
@@ -59,23 +60,51 @@ export async function sendDevotionEmail(
     <div class="footer">
       <p>Heaven's Hospitality Ministries &nbsp;|&nbsp; <a href="${SITE_URL}">heavenshospitality.org</a></p>
       <p>Questions? Email us at <a href="mailto:hospitalityheavens@gmail.com">hospitalityheavens@gmail.com</a></p>
-      <p style="color:rgba(255,255,255,0.25);margin-top:10px;">You're receiving this because you subscribed to daily devotions.</p>
+      <p style="color:rgba(255,255,255,0.25);margin-top:10px;">You're receiving this because you subscribed to daily devotions.<br><a href="{{UNSUB_URL}}" style="color:rgba(232,76,14,0.7);">Unsubscribe</a></p>
     </div>
   </div>
 </body>
 </html>`;
 
-  const results = await Promise.allSettled(
-    subscribers.map(email =>
-      resend.emails.send({
-        from: FROM,
-        to: email,
-        subject: `Daily Devotion: ${devotion.title}`,
-        html,
-      })
-    )
-  );
-  return results;
+  // Build one message per recipient, each with its own one-click unsubscribe URL.
+  const messages = subscribers.map(email => {
+    const u = unsubscribeUrl(email);
+    return {
+      from: FROM,
+      to: email,
+      subject: `Daily Devotion: ${devotion.title}`,
+      html: html.replace(/{{UNSUB_URL}}/g, u),
+      headers: {
+        'List-Unsubscribe': `<${u}>`,
+        'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click',
+      },
+    };
+  });
+
+  // Resend rate-limits individual sends (2-5 req/s) and does NOT throw on 429 -
+  // it returns an error object. Sending 22 at once silently drops most of them.
+  // The Batch API sends up to 100 per request in a single call, sidestepping that.
+  const CHUNK = 100;
+  let sent = 0;
+  const errors: unknown[] = [];
+
+  for (let i = 0; i < messages.length; i += CHUNK) {
+    const chunk = messages.slice(i, i + CHUNK);
+    try {
+      const { data, error } = await resend.batch.send(chunk);
+      if (error) {
+        errors.push(error);
+      } else {
+        sent += data?.data?.length ?? chunk.length;
+      }
+    } catch (e) {
+      errors.push(e);
+    }
+    // throttle between batches (only matters past 100 recipients)
+    if (i + CHUNK < messages.length) await new Promise(r => setTimeout(r, 600));
+  }
+
+  return { total: subscribers.length, sent, failed: subscribers.length - sent, errors };
 }
 
 // ─── Welcome email ───────────────────────────────────────────────────────────

@@ -39,7 +39,7 @@ export default function AdminDevotions() {
       body: JSON.stringify({devotion_id: id}),
     });
     const data = await res.json();
-    alert(`Sent to ${data.sent_to || 0} subscribers!`);
+    alert(`Sent to ${data.sent_to ?? 0} of ${data.total ?? 0}. Failed: ${data.failed ?? 0}.`);
   };
 
   return (
