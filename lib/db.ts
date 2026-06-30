@@ -83,6 +83,7 @@ export async function initDB() {
     author VARCHAR(255) NOT NULL DEFAULT 'Evangelist Bob Edward',
     description TEXT,
     cover_url VARCHAR(500),
+    cover_image TEXT,
     download_url VARCHAR(500) NOT NULL,
     is_featured BOOLEAN DEFAULT false,
     is_published BOOLEAN DEFAULT true,
@@ -90,6 +91,8 @@ export async function initDB() {
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
   )`;
+  // Migrate: add cover_image column if it doesn't exist
+  await sql`ALTER TABLE books ADD COLUMN IF NOT EXISTS cover_image TEXT`;
   await sql`CREATE TABLE IF NOT EXISTS site_content (
     key VARCHAR(100) PRIMARY KEY,
     value TEXT,

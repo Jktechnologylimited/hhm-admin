@@ -7,7 +7,7 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const { id } = await params;
-  const { title, author, description, cover_url, download_url, is_featured, is_published, sort_order } = await req.json();
+  const { title, author, description, cover_url, cover_image, download_url, is_featured, is_published, sort_order } = await req.json();
 
   if (is_featured) {
     await sql`UPDATE books SET is_featured = false WHERE id != ${id}`;
@@ -16,11 +16,16 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
   const result = await sql`
     UPDATE books SET
       title = ${title}, author = ${author || 'Evangelist Bob Edward'},
-      description = ${description || null}, cover_url = ${cover_url || null},
-      download_url = ${download_url}, is_featured = ${is_featured || false},
-      is_published = ${is_published !== false}, sort_order = ${sort_order || 0},
+      description = ${description || null},
+      cover_url = ${cover_url || null},
+      cover_image = ${cover_image !== undefined ? cover_image : null},
+      download_url = ${download_url},
+      is_featured = ${is_featured || false},
+      is_published = ${is_published !== false},
+      sort_order = ${sort_order || 0},
       updated_at = NOW()
-    WHERE id = ${id} RETURNING *
+    WHERE id = ${id}
+    RETURNING id, title, author, description, cover_url, cover_image, download_url, is_featured, is_published, sort_order, created_at
   `;
   return NextResponse.json({ book: result[0] });
 }
