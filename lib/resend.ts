@@ -2,7 +2,7 @@ import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-const FROM = 'heavens-hospitality@mail.ibiz.name.ng'; // Hardcoded — update when heavenshospitality.org propagates
+const FROM = "Heaven's Hospitality Ministries <heavens-hospitality@mail.ibiz.name.ng>"; // Hardcoded — update when heavenshospitality.org propagates
 const SITE_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://heavenshospitality.org';
 
 // ─── Newsletter devotion email ──────────────────────────────────────────────
